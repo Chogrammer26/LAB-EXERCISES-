@@ -1,0 +1,150 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+
+struct Player {
+    std::string nickname;
+    int age;
+    int score1;
+    int score2;
+    double average = (score1 + score2) / 2;
+};
+
+void display_menu();
+void add_record(std::vector<Player> &);
+void view_record(const std::vector<Player> &);
+void show_max(std::vector<Player> &);
+void show_min(std::vector<Player> &);
+void get_average(const std::vector<Player> &);
+
+int main()
+{
+    std::vector<Player> players = {};
+    int choice{}; 
+    
+    do {
+        display_menu();
+        std::cout << "Enter an option (1-6) : \n>>";
+        std::cin >> choice;
+
+        switch(choice) {
+            case 1:
+                add_record(players);
+                break;
+            case 2:
+                view_record(players);
+                break;
+            case 3:
+                get_average(players);
+                break;
+            case 4:
+                show_max(players);
+                break;
+            case 5:
+                show_min(players);
+                break;
+            case 6:
+                std::cout << "Closing Player Database : ";
+                break;
+            default:
+                std::cout << "Please enter a valid option!";
+        }
+    } while (choice != 6);
+    
+}
+
+void display_menu()
+{
+    std::cout << "========================================\n"
+              << "                   MENU                 \n"
+              << "========================================\n"
+              << "1. Add Records\n"
+              << "2. View Player Records\n"
+              << "3. Compute Average\n"
+              << "4. Show Players with Maximum Average\n"
+              << "5. Show Players with Minimum Average\n"
+              << "6. Exit\n";
+}
+
+void add_record(std::vector<Player> &players)
+{
+    Player p; 
+    char option; 
+
+    while (option != 'N' || option != 'n') {
+        std::cout << "ADDING PLAYER DATA\n";
+    
+        std::cout << "Enter Player's Nickname        : ";
+        std::cin >> p.nickname;
+
+        std::cout << "Enter Player's Age             : ";
+        std::cin >> p.age;
+
+        std::cout << "Enter Player's Two Best Scores : ";
+        std::cin >> p.score1 >> p.score2;
+
+        players.push_back(p);
+
+        std::cout << "Do you want to add more data ? (y / n) ";
+        std::cin >> option;  
+    }
+}
+
+void view_record(const std::vector<Player> &players)
+{
+    int nth_player = 1; 
+    std::cout <<  "+===========================+"
+              <<  "|     PLAYER INFORMATION    |\n"
+              << " +---------------------------+\n\n";
+
+    for (Player p : players) {
+        std::cout << "PLAYER # " << nth_player << std::endl
+                  << "NICKNAME    : " << p.nickname << '\n'  
+                  << "AGE         : " << p.age      << '\n'
+                  << "BEST SCORES : " << std::min(p.score1, p.score2) << ", " << std::max(p.score1, p.score2); 
+    }
+}
+
+void show_max( std::vector<Player> &players)
+{
+    std::vector<Player> averages;
+
+    for (int i = 1; i < players.size() - 1 ; i++)
+        (players[i].average > averages[0]) ? (averages[0] = players[i].average) :
+        (players[i].average == averages[0]) ? averages.push_back(players[i].average);
+    
+    std::cout << "+==========================+\n"
+              << "|       HIGH SCORER/S      |\n"
+              << "+==========================+\n\n"
+              << "                SCORE      \n";
+    
+    for (Player p : players)
+        std::cout << p.nickname << "          " << p.average << '\n';
+}
+
+void show_min(std::vector<Player> &players)
+{
+    std::vector<Player> averages;
+    for (int i = 1; i < players.size(); i++)
+        (players[i].average < averages[0]) ? (averages[0] = players[i].average) :
+        (players[i].average == averages[0]) ? averages.push_back(players[i].average);
+    
+    std::cout << "+==========================+\n"
+              << "|        LOW SCORER/S      |\n"
+              << "+==========================+\n\n"
+              << "                SCORE      \n";
+    
+    for (Player p : players)
+        std::cout << p.nickname << "          " << p.average << '\n';
+}
+
+void get_average(const std::vector<Player> &players)
+{
+    std::cout << "+============================+\n"
+              << "|        AVERAGE SCORES      |\n"
+              << "+============================+\n\n"
+              << "              AVG. SCORE     \n";
+    
+    for (Player p : players)
+        std::cout << p.nickname << "            " << p.average << '\n';
+}
