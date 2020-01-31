@@ -1,0 +1,22 @@
+#include <iostream>
+
+void stringCat(char *s1, char *s2);
+
+int main()
+{
+    char str1[20] = "The Happy";
+    char str2[20] = " Man";
+    
+    stringCat(str1, str2);
+    
+    std::cout << str1;
+}
+
+void stringCat(char *s1, char *s2)
+{
+    while (*s1 != '\0')
+        *s1++;
+    
+    while (*s1++ = *s2++)
+    ;
+}
