@@ -10,13 +10,13 @@ int main()
     
     int arr[row][col];
     input(arr,row,col);
-    result(arr,row,col;
+    result(arr,row,col);
 }
 
 void input(int arr[][], int row, int col)
 {
-    for (int i = 0; i < row, i++)
-    for (int j = 0; j < col, j++)
+    for (int i = 0; i < row; i++)
+    for (int j = 0; j < col; j++)
     std::cin >> arr[i][j]; 
 }
 
