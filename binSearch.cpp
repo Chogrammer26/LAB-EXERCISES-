@@ -26,8 +26,6 @@ int main()
             
         else if (target < n[mid]) 
             right = mid - 1;
-        
-        else 
-            std::cout << "Not Found";
+       
     }
 }
